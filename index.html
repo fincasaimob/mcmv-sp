@@ -3,770 +3,711 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plataforma MCMV SP</title>
+<title>MCMV SP</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--green:#00a86b;--green-dark:#007a4e;--green-light:#e6f7f1;--blue:#1877f2;--red:#e53935;--bg:#f4f6f9;--card:#fff;--text:#1a1a2e;--muted:#6b7280;--border:#e5e7eb;--radius:12px}
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:#1a1a2e;display:flex;flex-direction:column;z-index:100}
-.sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,0.1)}
-.sidebar-logo h1{color:#fff;font-size:18px;font-weight:700}
-.sidebar-logo span{color:var(--green)}
-.sidebar-logo p{color:rgba(255,255,255,0.5);font-size:11px;margin-top:4px}
-.nav{padding:16px 0;flex:1}
-.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;color:rgba(255,255,255,0.6);cursor:pointer;transition:.2s;font-size:14px;border-left:3px solid transparent}
-.nav-item:hover{color:#fff;background:rgba(255,255,255,0.05)}
-.nav-item.active{color:#fff;background:rgba(0,168,107,0.15);border-left-color:var(--green)}
+:root{--g:#00a86b;--gd:#007a4e;--gl:#e6f7f1;--b:#1877f2;--r:#e53935;--bg:#f4f6f9;--card:#fff;--txt:#1a1a2e;--mu:#6b7280;--br:#e5e7eb;--rad:12px}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--txt)}
+.side{position:fixed;top:0;left:0;width:220px;height:100vh;background:#1a1a2e;display:flex;flex-direction:column;z-index:100}
+.logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.logo h1{color:#fff;font-size:18px;font-weight:700}.logo h1 span{color:var(--g)}
+.logo p{color:rgba(255,255,255,.4);font-size:11px;margin-top:4px}
+.nav a{display:flex;align-items:center;gap:10px;padding:12px 20px;color:rgba(255,255,255,.6);cursor:pointer;font-size:14px;border-left:3px solid transparent;text-decoration:none}
+.nav a:hover{color:#fff;background:rgba(255,255,255,.05)}
+.nav a.on{color:#fff;background:rgba(0,168,107,.15);border-left-color:var(--g)}
 .main{margin-left:220px;padding:28px;min-height:100vh}
-.page{display:none}.page.active{display:block}
-.page-header{margin-bottom:24px}
-.page-header h2{font-size:22px;font-weight:700}
-.page-header p{color:var(--muted);font-size:14px;margin-top:4px}
-.card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:20px;margin-bottom:16px}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:24px}
-.metric-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:18px}
-.metric-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.metric-card .value{font-size:26px;font-weight:700;margin:4px 0}
-.btn{padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green-dark)}
-.btn-secondary{background:var(--bg);color:var(--text);border:1px solid var(--border)}
-.btn-blue{background:var(--blue);color:#fff}
+.pg{display:none}.pg.on{display:block}
+.ph{margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ph h2{font-size:22px;font-weight:700}.ph p{color:var(--mu);font-size:14px;margin-top:4px}
+.card{background:var(--card);border-radius:var(--rad);border:1px solid var(--br);padding:20px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:16px;margin-bottom:20px}
+.mc{background:var(--card);border-radius:var(--rad);border:1px solid var(--br);padding:18px}
+.mc .lb{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
+.mc .vl{font-size:24px;font-weight:700;margin:4px 0}
+.mc .sub{font-size:12px;color:var(--mu)}
+.btn{padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.btn-b{background:var(--b);color:#fff}.btn-g{background:var(--g);color:#fff}.btn-g:hover{background:var(--gd)}
+.btn-s{background:var(--bg);color:var(--txt);border:1px solid var(--br)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--text)}
-.hint{font-size:11px;color:var(--muted);margin-top:4px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+input,select,textarea{width:100%;padding:9px 12px;border:1px solid var(--br);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--txt)}
+.hint{font-size:11px;color:var(--mu);margin-top:3px}
+.mg{margin-bottom:14px}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;padding:10px 12px;background:var(--bg);color:var(--muted);font-size:11px;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+th{text-align:left;padding:9px 12px;background:var(--bg);color:var(--mu);font-size:11px;text-transform:uppercase;border-bottom:1px solid var(--br);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--br);vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafafa}
-.badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block;white-space:nowrap}
-.badge-green{background:var(--green-light);color:var(--green-dark)}
-.badge-yellow{background:#fef3c7;color:#92400e}
-.badge-gray{background:var(--bg);color:var(--muted)}
-.badge-red{background:#fde8e8;color:var(--red)}
-.alert{padding:14px 18px;border-radius:8px;font-size:14px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
-.alert-info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
-.alert-success{background:var(--green-light);color:var(--green-dark);border:1px solid #a7f3d0}
-.alert-error{background:#fde8e8;color:var(--red);border:1px solid #fca5a5}
-.spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
-.spinner-dark{border-color:rgba(0,0,0,0.15);border-top-color:var(--green)}
-@keyframes spin{to{transform:rotate(360deg)}}
-.filter-btn{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:.2s}
-.filter-btn:hover{border-color:var(--green);color:var(--green)}
-.filter-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
-.tab-btn{padding:8px 16px;border-radius:6px;border:none;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:.2s}
-.tab-btn.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
-.good{color:var(--green)!important;font-weight:700}
-.bad{color:var(--red)!important;font-weight:700}
-.warn{color:#f59e0b!important;font-weight:700}
-.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 200px)}
-.chat-messages{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-bottom:16px}
-.chat-msg{display:flex;gap:10px;max-width:85%}
-.chat-msg.ai{align-self:flex-start}
-.chat-msg.user{align-self:flex-end;flex-direction:row-reverse}
-.chat-bubble{padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.7}
-.chat-msg.ai .chat-bubble{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px}
-.chat-msg.user .chat-bubble{background:var(--green);color:#fff;border-bottom-right-radius:4px}
-.chat-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:4px;background:var(--green-light)}
-.chat-typing span{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block;animation:bounce 1.2s infinite;margin:0 2px}
-.chat-typing span:nth-child(2){animation-delay:.2s}
-.chat-typing span:nth-child(3){animation-delay:.4s}
-@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
-.sugest-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:#fff;font-size:12px;cursor:pointer;color:var(--muted)}
-.sugest-btn:hover{border-color:var(--green);color:var(--green)}
-.steps{display:flex;margin-bottom:28px}
-.step{flex:1;text-align:center;padding:12px 6px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted)}
-.step:first-child{border-radius:8px 0 0 8px}
-.step:last-child{border-radius:0 8px 8px 0}
-.step.active{background:var(--green);color:#fff;border-color:var(--green)}
-.step.done{background:var(--green-light);color:var(--green-dark);border-color:var(--green)}
-.step-num{display:block;font-size:18px;margin-bottom:2px}
-.upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:40px 20px;text-align:center;cursor:pointer;transition:.2s;background:#fafafa}
-.upload-area:hover{border-color:var(--green);background:var(--green-light)}
-.upload-area input{display:none}
-.perguntas-box{display:flex;flex-direction:column;gap:12px}
-.pergunta-item{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:14px}
-.pergunta-item label{font-size:13px;font-weight:700;display:block;margin-bottom:6px}
-.pergunta-item input,.pergunta-item select,.pergunta-item textarea{width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit}
-.pergunta-item textarea{min-height:60px;resize:vertical}
-.prompt-box{background:#0f172a;border-radius:var(--radius);padding:20px;color:#e2e8f0;font-family:monospace;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto}
-.fsel{padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;background:#fff;max-width:200px}
+.bk{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block;white-space:nowrap}
+.bk-g{background:var(--gl);color:var(--gd)}.bk-y{background:#fef3c7;color:#92400e}
+.bk-r{background:#fde8e8;color:var(--r)}.bk-x{background:var(--bg);color:var(--mu)}
+.al{padding:13px 16px;border-radius:8px;font-size:14px;margin-bottom:14px;display:flex;gap:10px}
+.al-s{background:var(--gl);color:var(--gd);border:1px solid #a7f3d0}
+.al-e{background:#fde8e8;color:var(--r);border:1px solid #fca5a5}
+.al-i{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+.spin{width:16px;height:16px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.fb{padding:6px 12px;border-radius:6px;border:1px solid var(--br);background:#fff;font-size:12px;font-weight:600;cursor:pointer;color:var(--mu)}
+.fb:hover,.fb.on{background:var(--g);color:#fff;border-color:var(--g)}
+.tb{padding:8px 14px;border-radius:6px;border:none;background:transparent;font-size:13px;font-weight:600;cursor:pointer;color:var(--mu)}
+.tb.on{background:#fff;color:var(--txt);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.good{color:var(--g)!important;font-weight:700}.bad{color:var(--r)!important;font-weight:700}.warn{color:#f59e0b!important;font-weight:700}
+.cm{display:flex;flex-direction:column;height:calc(100vh - 200px)}
+.msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
+.msg{display:flex;gap:8px;max-width:85%}
+.msg.ai{align-self:flex-start}.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.bub{padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.7}
+.msg.ai .bub{background:var(--card);border:1px solid var(--br);border-bottom-left-radius:4px}
+.msg.me .bub{background:var(--g);color:#fff;border-bottom-right-radius:4px}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:3px;background:var(--gl)}
+.dot span{width:7px;height:7px;border-radius:50%;background:var(--mu);display:inline-block;animation:bo 1.2s infinite;margin:0 2px}
+.dot span:nth-child(2){animation-delay:.2s}.dot span:nth-child(3){animation-delay:.4s}
+@keyframes bo{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
+.sg{padding:5px 11px;border-radius:20px;border:1px solid var(--br);background:#fff;font-size:12px;cursor:pointer;color:var(--mu)}
+.sg:hover{border-color:var(--g);color:var(--g)}
+.steps{display:flex;margin-bottom:24px}
+.stp{flex:1;text-align:center;padding:11px 4px;background:var(--card);border:1px solid var(--br);font-size:12px;font-weight:600;color:var(--mu)}
+.stp:first-child{border-radius:8px 0 0 8px}.stp:last-child{border-radius:0 8px 8px 0}
+.stp.on{background:var(--g);color:#fff;border-color:var(--g)}
+.stp.dn{background:var(--gl);color:var(--gd);border-color:var(--g)}
+.up{border:2px dashed var(--br);border-radius:var(--rad);padding:36px 20px;text-align:center;cursor:pointer;background:#fafafa}
+.up:hover{border-color:var(--g);background:var(--gl)}
+.up input{display:none}
+.pi{background:#f8fafc;border:1px solid var(--br);border-radius:8px;padding:13px;margin-bottom:10px}
+.pi label{font-size:13px;font-weight:700;display:block;margin-bottom:5px}
+.pi input,.pi select,.pi textarea{padding:7px 11px;font-size:13px}
+.pi textarea{min-height:55px;resize:vertical}
+.pb{background:#0f172a;border-radius:var(--rad);padding:18px;color:#e2e8f0;font-family:monospace;font-size:13px;line-height:1.8;white-space:pre-wrap;word-break:break-word;max-height:480px;overflow-y:auto}
+.frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.fsel{padding:7px 10px;border:1px solid var(--br);border-radius:6px;font-size:13px;background:#fff;max-width:210px}
 </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <div class="sidebar-logo">
-    <h1>MCMV <span>SP</span></h1>
-    <p>Plataforma Imobiliaria</p>
-  </div>
+<div class="side">
+  <div class="logo"><h1>MCMV <span>SP</span></h1><p>Plataforma Imobiliaria</p></div>
   <nav class="nav">
-    <div class="nav-item active" onclick="showPage('dashboard',this)">&#128202; Dashboard</div>
-    <div class="nav-item" onclick="showPage('anuncios',this)">&#128226; Anuncios</div>
-    <div class="nav-item" onclick="showPage('analise',this)">&#129302; Analise IA</div>
-    <div class="nav-item" onclick="showPage('criativos',this)">&#10024; Criativos</div>
-    <div class="nav-item" onclick="showPage('config',this)">&#9881; Config</div>
+    <a class="on" onclick="go('dash',this)">&#128202; Dashboard</a>
+    <a onclick="go('ads',this)">&#128226; Anuncios</a>
+    <a onclick="go('ai',this)">&#129302; Analise IA</a>
+    <a onclick="go('cri',this)">&#10024; Criativos</a>
+    <a onclick="go('cfg',this)">&#9881; Config</a>
   </nav>
 </div>
 
 <div class="main">
 
 <!-- DASHBOARD -->
-<div class="page active" id="page-dashboard">
-  <div class="page-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-      <div><h2>Dashboard</h2><p>Visao geral da operacao MCMV em Sao Paulo</p></div>
-      <button class="btn btn-blue" id="btn-sync-dash" onclick="syncCampaigns()">&#128260; Sincronizar Facebook</button>
-    </div>
+<div class="pg on" id="pg-dash">
+  <div class="ph">
+    <div><h2>Dashboard</h2><p>Visao geral da operacao MCMV</p></div>
+    <button class="btn btn-b" id="btn-sync" onclick="syncCamp()">&#128260; Sincronizar Facebook</button>
   </div>
-  <div class="card" style="padding:14px 20px">
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-      <span style="font-size:13px;font-weight:600;color:var(--muted)">Periodo:</span>
-      <button class="filter-btn active" onclick="setDateFilter('today',this)">Hoje</button>
-      <button class="filter-btn" onclick="setDateFilter('last_7d',this)">7 dias</button>
-      <button class="filter-btn" onclick="setDateFilter('last_14d',this)">14 dias</button>
-      <button class="filter-btn" onclick="setDateFilter('last_30d',this)">30 dias</button>
-      <button class="filter-btn" onclick="setDateFilter('this_month',this)">Este mes</button>
-      <button class="filter-btn" onclick="setDateFilter('last_month',this)">Mes anterior</button>
-      <span style="font-size:13px;font-weight:600;color:var(--muted);margin-left:8px">Status:</span>
-      <select id="status-filter" onchange="applyFilters()" class="fsel">
-        <option value="all" selected>Todos</option>
+  <div class="card" style="padding:12px 16px">
+    <div class="frow" style="margin:0">
+      <span style="font-size:13px;font-weight:600;color:var(--mu)">Periodo:</span>
+      <button class="fb on" onclick="setPeriod('today',this)">Hoje</button>
+      <button class="fb" onclick="setPeriod('last_7d',this)">7 dias</button>
+      <button class="fb" onclick="setPeriod('last_14d',this)">14 dias</button>
+      <button class="fb" onclick="setPeriod('last_30d',this)">30 dias</button>
+      <button class="fb" onclick="setPeriod('this_month',this)">Este mes</button>
+      <button class="fb" onclick="setPeriod('last_month',this)">Mes anterior</button>
+      <span style="font-size:13px;font-weight:600;color:var(--mu)">Status:</span>
+      <select class="fsel" id="sf" onchange="applyF()" style="max-width:130px">
+        <option value="">Todos</option>
         <option value="ACTIVE">Ativos</option>
         <option value="PAUSED">Pausados</option>
       </select>
     </div>
   </div>
-  <div class="cards-grid">
-    <div class="metric-card"><div class="label">Investimento</div><div class="value" id="m-spend">R$ 0</div><div style="font-size:12px;color:var(--muted)">periodo selecionado</div></div>
-    <div class="metric-card"><div class="label">Leads</div><div class="value good" id="m-leads">0</div><div style="font-size:12px;color:var(--muted)">total no periodo</div></div>
-    <div class="metric-card"><div class="label">CPL</div><div class="value" id="m-cpl-val">-</div><div style="font-size:12px;color:var(--muted)">custo por lead</div></div>
-    <div class="metric-card"><div class="label">Alcance</div><div class="value" id="m-reach">0</div><div id="m-freq" style="font-size:12px;color:var(--muted)">Freq: -</div></div>
-    <div class="metric-card"><div class="label">Impressoes</div><div class="value" id="m-imp">0</div></div>
-    <div class="metric-card"><div class="label">Cliques</div><div class="value" id="m-clicks">0</div><div id="m-cpc-sub" style="font-size:12px;color:var(--muted)">CPC: -</div></div>
-    <div class="metric-card"><div class="label">CTR Medio</div><div class="value" id="m-ctr">0%</div></div>
-    <div class="metric-card"><div class="label">Campanhas Ativas</div><div class="value" id="m-total">0</div><div id="m-total-sub" style="font-size:12px;color:var(--muted)">de 0 total</div></div>
+  <div class="grid">
+    <div class="mc"><div class="lb">Investimento</div><div class="vl" id="d-sp">R$ 0</div><div class="sub">periodo selecionado</div></div>
+    <div class="mc"><div class="lb">Leads</div><div class="vl good" id="d-ld">0</div><div class="sub">total no periodo</div></div>
+    <div class="mc"><div class="lb">CPL</div><div class="vl" id="d-cpl">-</div><div class="sub">custo por lead</div></div>
+    <div class="mc"><div class="lb">Alcance</div><div class="vl" id="d-rc">0</div><div class="sub" id="d-fq">Freq: -</div></div>
+    <div class="mc"><div class="lb">Impressoes</div><div class="vl" id="d-im">0</div></div>
+    <div class="mc"><div class="lb">Cliques</div><div class="vl" id="d-cl">0</div><div class="sub" id="d-cpc">CPC: -</div></div>
+    <div class="mc"><div class="lb">CTR Medio</div><div class="vl" id="d-ct">0%</div></div>
+    <div class="mc"><div class="lb">Camp. Ativas</div><div class="vl" id="d-ac">0</div><div class="sub" id="d-tc">de 0 total</div></div>
   </div>
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-      <h3 style="font-size:15px;font-weight:700">Campanhas</h3>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input type="text" id="search-camp" placeholder="Buscar..." oninput="applyFilters()" style="padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;width:180px">
-        <select id="sort-by" onchange="applyFilters()" class="fsel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <strong>Campanhas</strong>
+      <div style="display:flex;gap:8px">
+        <input id="sq" type="text" placeholder="Buscar..." oninput="applyF()" style="width:160px;padding:7px 10px;font-size:13px">
+        <select id="sb" class="fsel" onchange="applyF()">
           <option value="spend">Maior Gasto</option>
           <option value="leads">Mais Leads</option>
           <option value="ctr">Maior CTR</option>
-          <option value="impressions">Mais Impressoes</option>
         </select>
       </div>
     </div>
-    <div id="dash-table" style="overflow-x:auto"><p style="color:var(--muted);font-size:14px;text-align:center;padding:20px">Configure o Facebook em Config e clique em Sincronizar.</p></div>
+    <div id="d-tb" style="overflow-x:auto"><p style="color:var(--mu);text-align:center;padding:20px">Configure o Facebook em Config e sincronize.</p></div>
   </div>
 </div>
 
 <!-- ANUNCIOS -->
-<div class="page" id="page-anuncios">
-  <div class="page-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-      <div><h2>Anuncios</h2><p>Campanhas, Conjuntos e Anuncios com metricas de Lead</p></div>
-      <button class="btn btn-blue" onclick="syncAll()">&#128260; Sincronizar Tudo</button>
-    </div>
+<div class="pg" id="pg-ads">
+  <div class="ph">
+    <div><h2>Anuncios</h2><p>Campanhas, Conjuntos e Anuncios</p></div>
+    <button class="btn btn-b" onclick="syncAll()">&#128260; Sincronizar Tudo</button>
   </div>
-  <div style="display:flex;gap:0;margin-bottom:16px;background:var(--bg);padding:4px;border-radius:8px;width:fit-content">
-    <button class="tab-btn active" id="tbtn-campanhas" onclick="showTab('campanhas',this)">&#128202; Campanhas</button>
-    <button class="tab-btn" id="tbtn-conjuntos" onclick="showTab('conjuntos',this)">&#127919; Conjuntos</button>
-    <button class="tab-btn" id="tbtn-ads" onclick="showTab('ads',this)">&#128463; Anuncios</button>
+  <div style="display:flex;gap:0;margin-bottom:14px;background:var(--bg);padding:4px;border-radius:8px;width:fit-content">
+    <button class="tb on" id="t-c" onclick="showTab('c',this)">&#128202; Campanhas</button>
+    <button class="tb" id="t-j" onclick="showTab('j',this)">&#127919; Conjuntos</button>
+    <button class="tb" id="t-a" onclick="showTab('a',this)">&#128463; Anuncios</button>
   </div>
   <div class="card" style="padding:12px 16px">
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-      <select id="f-status" onchange="aplicarFiltros()" class="fsel">
-        <option value="">Todos os Status</option>
-        <option value="ACTIVE">Ativo</option>
-        <option value="PAUSED">Pausado</option>
-        <option value="CAMPAIGN_PAUSED">Campanha Pausada</option>
-      </select>
-      <select id="f-campanha" onchange="aplicarFiltros()" class="fsel" style="max-width:220px">
-        <option value="">Todas as Campanhas</option>
-      </select>
-      <select id="f-conjunto" onchange="aplicarFiltros()" class="fsel" style="max-width:220px">
-        <option value="">Todos os Conjuntos</option>
-      </select>
-      <input type="text" id="f-busca" placeholder="Buscar por nome..." oninput="aplicarFiltros()" style="padding:7px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;min-width:180px">
-      <button class="btn btn-secondary" style="font-size:12px;padding:7px 12px" onclick="limparFiltros()">Limpar</button>
+    <div class="frow" style="margin:0">
+      <select id="f-st" class="fsel" onchange="applyAF()"><option value="">Todos os Status</option><option value="ACTIVE">Ativo</option><option value="PAUSED">Pausado</option><option value="CAMPAIGN_PAUSED">Camp. Pausada</option></select>
+      <select id="f-ca" class="fsel" onchange="applyAF()"><option value="">Todas as Campanhas</option></select>
+      <select id="f-cj" class="fsel" onchange="applyAF()"><option value="">Todos os Conjuntos</option></select>
+      <input id="f-bq" type="text" placeholder="Buscar nome..." oninput="applyAF()" style="width:170px;padding:7px 10px;font-size:13px">
+      <button class="btn btn-s" onclick="clearAF()" style="font-size:12px;padding:7px 12px">Limpar</button>
     </div>
   </div>
-  <div id="tab-campanhas" class="card"><p style="color:var(--muted);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
-  <div id="tab-conjuntos" class="card" style="display:none"><p style="color:var(--muted);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
-  <div id="tab-ads" class="card" style="display:none"><p style="color:var(--muted);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
+  <div id="tab-c" class="card"><p style="color:var(--mu);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
+  <div id="tab-j" class="card" style="display:none"><p style="color:var(--mu);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
+  <div id="tab-a" class="card" style="display:none"><p style="color:var(--mu);text-align:center;padding:20px">Clique em Sincronizar Tudo.</p></div>
 </div>
 
 <!-- ANALISE -->
-<div class="page" id="page-analise">
-  <div class="page-header"><h2>Analise com IA</h2><p>Chat inteligente sobre suas campanhas</p></div>
-  <div class="chat-wrap">
-    <div class="chat-messages" id="chat-messages">
-      <div class="chat-msg ai">
-        <div class="chat-avatar">&#129302;</div>
-        <div class="chat-bubble">Ola! Sou seu assistente especialista em midia paga para o MCMV em Sao Paulo. Clique em <strong>Analisar Campanhas</strong> ou me faca uma pergunta!</div>
+<div class="pg" id="pg-ai">
+  <div class="ph"><div><h2>Analise com IA</h2><p>Chat sobre suas campanhas</p></div></div>
+  <div class="cm">
+    <div class="msgs" id="msgs">
+      <div class="msg ai"><div class="av">&#129302;</div><div class="bub">Ola! Sou seu assistente MCMV SP. Clique em <strong>Analisar</strong> ou me faca uma pergunta!</div></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--br);border-radius:var(--rad);padding:10px;display:flex;gap:8px;align-items:flex-end;margin-top:10px">
+      <textarea id="ci" placeholder="Ex: Qual campanha pausar? Como melhorar CTR?" style="flex:1;border:none;outline:none;font-family:inherit;font-size:14px;resize:none;height:42px;max-height:110px;background:transparent" onkeydown="ckd(event)" oninput="crs(this)"></textarea>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <button class="btn btn-g" onclick="doAnalyze()" id="ba" style="font-size:12px;white-space:nowrap">&#128202; Analisar</button>
+        <button class="btn btn-s" onclick="doSend()" id="bs" style="font-size:12px;white-space:nowrap">&#9658; Enviar</button>
       </div>
     </div>
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px;display:flex;gap:10px;align-items:flex-end;margin-top:12px">
-      <textarea id="chat-input" placeholder="Ex: Qual campanha pausar? Como melhorar meu CTR?" style="flex:1;border:none;outline:none;font-family:inherit;font-size:14px;resize:none;height:44px;max-height:120px;overflow-y:auto;background:transparent" onkeydown="chatKeydown(event)" oninput="autoResize(this)"></textarea>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button class="btn btn-primary" onclick="analisarIA()" id="btn-analisar" style="font-size:13px;white-space:nowrap">&#128202; Analisar Campanhas</button>
-        <button class="btn btn-secondary" onclick="enviarChat()" id="btn-enviar" style="font-size:13px;white-space:nowrap">&#9658; Enviar</button>
-      </div>
-    </div>
-    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-      <button class="sugest-btn" onclick="usarSugestao(this)">Qual campanha pausar?</button>
-      <button class="sugest-btn" onclick="usarSugestao(this)">Como melhorar o CTR?</button>
-      <button class="sugest-btn" onclick="usarSugestao(this)">Qual tem melhor CPL?</button>
-      <button class="sugest-btn" onclick="usarSugestao(this)">Como reduzir o CPC?</button>
+    <div style="display:flex;gap:5px;margin-top:7px;flex-wrap:wrap">
+      <button class="sg" onclick="useSug(this)">Qual campanha pausar?</button>
+      <button class="sg" onclick="useSug(this)">Como melhorar o CTR?</button>
+      <button class="sg" onclick="useSug(this)">Qual tem melhor CPL?</button>
+      <button class="sg" onclick="useSug(this)">Como reduzir o CPC?</button>
     </div>
   </div>
 </div>
 
 <!-- CRIATIVOS -->
-<div class="page" id="page-criativos">
-  <div class="page-header"><h2>Gerador de Criativos</h2><p>Do book da construtora ao prompt pronto para ChatGPT ou Gemini</p></div>
+<div class="pg" id="pg-cri">
+  <div class="ph"><div><h2>Gerador de Criativos</h2><p>Do book ao prompt para ChatGPT ou Gemini</p></div></div>
   <div class="steps">
-    <div class="step active" id="step1"><span class="step-num">&#128196;</span>1. Upload</div>
-    <div class="step" id="step2"><span class="step-num">&#128269;</span>2. Analise</div>
-    <div class="step" id="step3"><span class="step-num">&#10067;</span>3. Perguntas</div>
-    <div class="step" id="step4"><span class="step-num">&#127912;</span>4. Prompt</div>
+    <div class="stp on" id="st1"><div style="font-size:17px">&#128196;</div>1. Upload</div>
+    <div class="stp" id="st2"><div style="font-size:17px">&#128269;</div>2. Analise</div>
+    <div class="stp" id="st3"><div style="font-size:17px">&#10067;</div>3. Perguntas</div>
+    <div class="stp" id="st4"><div style="font-size:17px">&#127912;</div>4. Prompt</div>
   </div>
-  <div id="s1" class="card">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Envie o Book ou descreva o empreendimento</h3>
-    <div class="upload-area" onclick="document.getElementById('book-upload').click()">
-      <div style="font-size:40px;margin-bottom:8px">&#128209;</div>
-      <p id="upload-label"><strong>Clique para enviar</strong> o book ou PDF</p>
-      <p style="font-size:12px;margin-top:4px;color:var(--muted)">PDF, JPG ou PNG</p>
-      <input type="file" id="book-upload" accept=".pdf,.jpg,.jpeg,.png" onchange="handleBookUpload(event)">
+  <div id="cs1" class="card">
+    <div class="up" onclick="document.getElementById('fu').click()">
+      <div style="font-size:38px;margin-bottom:8px">&#128209;</div>
+      <p id="ul"><strong>Clique para enviar</strong> o book ou PDF</p>
+      <p style="font-size:12px;color:var(--mu);margin-top:4px">PDF, JPG ou PNG</p>
+      <input type="file" id="fu" accept=".pdf,.jpg,.jpeg,.png" onchange="onUpload(event)">
     </div>
-    <p style="font-size:13px;color:var(--muted);margin:16px 0 8px">Ou descreva o empreendimento:</p>
-    <textarea id="manual-desc" style="width:100%;height:90px;padding:10px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit" placeholder="Ex: Residencial Olimpia, MRV, Itaquera SP, 2 dormitorios, R$190.000..."></textarea>
-    <button class="btn btn-primary" style="margin-top:12px" onclick="analisarBook()" id="btn-analisar-book">&#128269; Analisar e Continuar</button>
+    <p style="font-size:13px;color:var(--mu);margin:14px 0 7px">Ou descreva o empreendimento:</p>
+    <textarea id="md" style="height:85px" placeholder="Ex: Residencial Olimpia, MRV, Itaquera SP, 2 dorms, R$190k..."></textarea>
+    <button class="btn btn-g" style="margin-top:10px" onclick="doAnalyzeBook()" id="bab">&#128269; Analisar e Continuar</button>
   </div>
-  <div id="s2" style="display:none" class="card">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:12px">Informacoes Extraidas</h3>
-    <div id="info-extraida" style="color:var(--muted);font-size:14px;text-align:center;padding:30px">Analisando...</div>
+  <div id="cs2" style="display:none" class="card">
+    <strong style="font-size:14px">Informacoes Extraidas</strong>
+    <div id="ie" style="color:var(--mu);text-align:center;padding:28px">Analisando...</div>
   </div>
-  <div id="s3" style="display:none" class="card">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Complete as informacoes</h3>
-    <div class="perguntas-box" id="perguntas-box"></div>
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn btn-primary" onclick="gerarPrompt()" id="btn-gerar-prompt">Gerar Prompt</button>
-      <button class="btn btn-secondary" onclick="gerarPrompt()">Pular</button>
+  <div id="cs3" style="display:none" class="card">
+    <strong style="font-size:14px;display:block;margin-bottom:14px">Complete as informacoes</strong>
+    <div id="pbox"></div>
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn btn-g" onclick="doPrompt()" id="bgp">Gerar Prompt</button>
+      <button class="btn btn-s" onclick="doPrompt()">Pular</button>
     </div>
   </div>
-  <div id="s4" style="display:none" class="card">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px">Prompt Pronto!</h3>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Cole no <strong>ChatGPT</strong> ou <strong>Gemini</strong> e anexe as fotos.</p>
-    <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="copiarPrompt()">Copiar Prompt</button>
-      <button class="btn btn-secondary" onclick="novoBook()">Novo Empreendimento</button>
-      <select id="formato-criativo" class="fsel" onchange="gerarPrompt()">
+  <div id="cs4" style="display:none" class="card">
+    <strong style="font-size:14px;display:block;margin-bottom:5px">Prompt Pronto!</strong>
+    <p style="font-size:13px;color:var(--mu);margin-bottom:14px">Cole no ChatGPT ou Gemini e anexe as fotos.</p>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <button class="btn btn-g" onclick="copyPrompt()">Copiar Prompt</button>
+      <button class="btn btn-s" onclick="resetBook()">Novo Empreendimento</button>
+      <select id="fmt" class="fsel" onchange="doPrompt()">
         <option value="feed">Feed (1080x1080)</option>
         <option value="stories">Stories (1080x1920)</option>
         <option value="carrossel">Carrossel</option>
         <option value="banner">Banner (1200x628)</option>
       </select>
     </div>
-    <div class="prompt-box" id="prompt-output">Gerando...</div>
-    <div class="alert alert-info" style="margin-top:16px">Como usar: Abra o ChatGPT ou Gemini, cole o prompt e anexe as fotos.</div>
+    <div class="pb" id="po">Gerando...</div>
+    <div class="al al-i" style="margin-top:14px">Cole no ChatGPT ou Gemini e anexe as fotos do empreendimento.</div>
   </div>
 </div>
 
 <!-- CONFIG -->
-<div class="page" id="page-config">
-  <div class="page-header"><h2>Configuracoes</h2></div>
+<div class="pg" id="pg-cfg">
+  <div class="ph"><div><h2>Configuracoes</h2></div></div>
   <div class="card">
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px">Facebook Ads</h3>
-    <div class="form-group">
-      <label>Access Token</label>
-      <input type="password" id="cfg-token" placeholder="EAANmqg4...">
-      <p class="hint">Gere no Graph API Explorer (permissao: ads_read)</p>
-    </div>
-    <div class="form-group">
-      <label>Ad Account ID</label>
-      <input type="text" id="cfg-account" placeholder="act_344181725">
-    </div>
-    <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;margin-top:24px">Claude API</h3>
-    <div class="form-group">
-      <label>Claude API Key</label>
-      <input type="password" id="cfg-claude" placeholder="sk-ant-...">
-      <p class="hint">Gere em: console.anthropic.com</p>
-    </div>
-    <button class="btn btn-primary" onclick="salvarConfig()">Salvar Configuracoes</button>
-    <div id="cfg-status" style="margin-top:12px"></div>
+    <div class="mg"><label>Facebook Access Token</label><input type="password" id="ct" placeholder="EAANmqg4..."><p class="hint">Graph API Explorer - permissao ads_read</p></div>
+    <div class="mg"><label>Ad Account ID</label><input type="text" id="ca" placeholder="act_344181725"></div>
+    <div class="mg"><label>Claude API Key</label><input type="password" id="cc" placeholder="sk-ant-..."><p class="hint">console.anthropic.com</p></div>
+    <button class="btn btn-g" onclick="saveConfig()">Salvar</button>
+    <div id="cs" style="margin-top:10px"></div>
   </div>
 </div>
 
 </div>
 
 <script>
-// ── State ────────────────────────────────────────────────────
-var S = {
-  campaigns: [],
-  chatHistory: [],
-  bookFile: null,
-  infoExtraida: {},
-  perguntasList: [],
-  respostas: {},
-  datePreset: 'today',
-  allData: { campanhas: [], conjuntos: [], ads: [] }
+var D = {
+  period: 'today',
+  camps: [],
+  chat: [],
+  book: null,
+  info: {},
+  qs: [],
+  allC: [], allJ: [], allA: []
 };
 
-// ── Config ───────────────────────────────────────────────────
-function getToken()     { return localStorage.getItem('fb_token') || ''; }
-function getAccount()   { return localStorage.getItem('fb_account') || ''; }
-function getClaudeKey() { return localStorage.getItem('claude_key') || ''; }
+var INS = 'spend,impressions,clicks,ctr,cpc,cpm,reach,frequency,actions,cost_per_action_type';
 
-function salvarConfig() {
-  localStorage.setItem('fb_token',   document.getElementById('cfg-token').value.trim());
-  localStorage.setItem('fb_account', document.getElementById('cfg-account').value.trim());
-  localStorage.setItem('claude_key', document.getElementById('cfg-claude').value.trim());
-  document.getElementById('cfg-status').innerHTML = '<div class="alert alert-success">Salvo!</div>';
-  setTimeout(function() { document.getElementById('cfg-status').innerHTML = ''; }, 2000);
+// CONFIG
+function tok() { return localStorage.getItem('t') || ''; }
+function acc() { return localStorage.getItem('a') || ''; }
+function key() { return localStorage.getItem('k') || ''; }
+function saveConfig() {
+  localStorage.setItem('t', document.getElementById('ct').value.trim());
+  localStorage.setItem('a', document.getElementById('ca').value.trim());
+  localStorage.setItem('k', document.getElementById('cc').value.trim());
+  document.getElementById('cs').innerHTML = '<div class="al al-s">Salvo!</div>';
+  setTimeout(function(){ document.getElementById('cs').innerHTML=''; }, 2000);
 }
-
 window.onload = function() {
-  var t = getToken(), a = getAccount(), c = getClaudeKey();
-  if (t) document.getElementById('cfg-token').value = t;
-  if (a) document.getElementById('cfg-account').value = a;
-  if (c) document.getElementById('cfg-claude').value = c;
+  var t=tok(),a=acc(),k=key();
+  if(t) document.getElementById('ct').value=t;
+  if(a) document.getElementById('ca').value=a;
+  if(k) document.getElementById('cc').value=k;
 };
 
-// ── Nav ──────────────────────────────────────────────────────
-function showPage(p, el) {
-  document.querySelectorAll('.page').forEach(function(x) { x.classList.remove('active'); });
-  document.querySelectorAll('.nav-item').forEach(function(x) { x.classList.remove('active'); });
-  document.getElementById('page-' + p).classList.add('active');
-  if (el) el.classList.add('active');
+// NAV
+function go(p, el) {
+  document.querySelectorAll('.pg').forEach(function(x){ x.classList.remove('on'); });
+  document.querySelectorAll('.nav a').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('pg-'+p).classList.add('on');
+  if(el) el.classList.add('on');
 }
 
-// ── Tabs anuncios ────────────────────────────────────────────
-function showTab(tab, el) {
-  ['campanhas','conjuntos','ads'].forEach(function(t) {
-    document.getElementById('tab-' + t).style.display = 'none';
+// PERIOD
+function setPeriod(p, el) {
+  D.period = p;
+  document.querySelectorAll('.fb').forEach(function(b){ b.classList.remove('on'); });
+  el.classList.add('on');
+  syncCamp();
+}
+
+// FB REQUEST
+function fbReq(path, cb, errCb) {
+  var t = tok(), a = acc();
+  if (!t || !a) { alert('Configure o Facebook em Config!'); return; }
+  var ins = 'insights.date_preset(' + D.period + '){' + INS + '}';
+  var url = 'https://graph.facebook.com/v19.0/' + a + '/' + path + ins + '&access_token=' + t;
+  var x = new XMLHttpRequest();
+  x.open('GET', url);
+  x.onreadystatechange = function() {
+    if (x.readyState !== 4) return;
+    try {
+      var d = JSON.parse(x.responseText);
+      if (d.error) { if(errCb) errCb(d.error.message); else alert('Erro: '+d.error.message); return; }
+      cb(d);
+    } catch(e) { if(errCb) errCb('Erro ao processar'); }
+  };
+  x.send();
+}
+
+// LEADS
+function getLeads(ins) {
+  var l=0, c=0;
+  if(ins.actions) ins.actions.forEach(function(a){
+    if(a.action_type==='lead'||a.action_type==='onsite_conversion.lead_grouped') l+=parseInt(a.value||0);
   });
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.getElementById('tab-' + tab).style.display = 'block';
-  el.classList.add('active');
-  aplicarFiltros();
-}
-
-// ── Filtros Dashboard ────────────────────────────────────────
-function setDateFilter(preset, el) {
-  S.datePreset = preset;
-  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  el.classList.add('active');
-  syncCampaigns();
-}
-
-function applyFilters() {
-  var sf  = document.getElementById('status-filter').value;
-  var sq  = (document.getElementById('search-camp').value || '').toLowerCase();
-  var sb  = document.getElementById('sort-by').value;
-  var res = S.campaigns.filter(function(c) {
-    if (sf !== 'all' && c.status !== sf) return false;
-    if (sq && c.name.toLowerCase().indexOf(sq) < 0) return false;
-    return true;
+  if(ins.cost_per_action_type) ins.cost_per_action_type.forEach(function(a){
+    if(a.action_type==='lead'||a.action_type==='onsite_conversion.lead_grouped') c=parseFloat(a.value||0);
   });
-  res.sort(function(a, b) { return b[sb] - a[sb]; });
-  renderDashTable(res);
-  updateMetrics(res);
+  return {l:l, c:c};
 }
 
-// ── Filtros Anuncios ─────────────────────────────────────────
-function filtrar(data) {
-  var st = document.getElementById('f-status').value;
-  var ca = document.getElementById('f-campanha').value;
-  var cj = document.getElementById('f-conjunto').value;
-  var bq = (document.getElementById('f-busca').value || '').toLowerCase();
-  return data.filter(function(x) {
-    var eff = x.effective_status || x.status || '';
-    if (st && eff.toUpperCase() !== st) return false;
-    if (ca && x.campaign_name !== ca) return false;
-    if (cj && x.adset_name !== cj) return false;
-    if (bq && x.name.toLowerCase().indexOf(bq) < 0) return false;
-    return true;
-  });
+// SYNC CAMPAIGNS
+function syncCamp() {
+  var t=tok(), a=acc();
+  if(!t||!a){ alert('Configure o Facebook em Config!'); return; }
+  var btn=document.getElementById('btn-sync');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Sincronizando...';
+  var ins='insights.date_preset('+D.period+'){'+INS+'}';
+  var url='https://graph.facebook.com/v19.0/'+a+'/campaigns?fields=name,status,'+ins+'&limit=50&access_token='+t;
+  var x=new XMLHttpRequest();
+  x.open('GET',url);
+  x.onreadystatechange=function(){
+    if(x.readyState!==4) return;
+    btn.disabled=false; btn.innerHTML='&#128260; Sincronizar Facebook';
+    try{
+      var d=JSON.parse(x.responseText);
+      if(d.error){ alert('Erro Facebook: '+d.error.message); return; }
+      D.camps=(d.data||[]).map(function(c){
+        var i=(c.insights&&c.insights.data&&c.insights.data[0])||{};
+        var ld=getLeads(i);
+        return{name:c.name,status:c.status,spend:parseFloat(i.spend||0),impressions:parseInt(i.impressions||0),clicks:parseInt(i.clicks||0),ctr:parseFloat(i.ctr||0),cpc:parseFloat(i.cpc||0),cpm:parseFloat(i.cpm||0),reach:parseInt(i.reach||0),frequency:parseFloat(i.frequency||0),leads:ld.l,cpl:ld.c};
+      });
+      D.allC=D.camps;
+      applyF();
+      updMetrics(D.camps);
+    }catch(e){ alert('Erro ao processar dados'); }
+  };
+  x.send();
 }
 
-function aplicarFiltros() {
-  var ativo = document.querySelector('.tab-btn.active');
-  if (!ativo) return;
-  var id = ativo.id;
-  if (id === 'tbtn-campanhas') buildLeadTable(filtrar(S.allData.campanhas), 'tab-campanhas', false, false);
-  else if (id === 'tbtn-conjuntos') buildLeadTable(filtrar(S.allData.conjuntos), 'tab-conjuntos', true, false);
-  else buildLeadTable(filtrar(S.allData.ads), 'tab-ads', true, true);
-}
-
-function popularFiltros() {
-  var camps = {}, conjs = {};
-  S.allData.conjuntos.forEach(function(c) { if (c.campaign_name) camps[c.campaign_name] = 1; });
-  S.allData.ads.forEach(function(a) {
-    if (a.campaign_name) camps[a.campaign_name] = 1;
-    if (a.adset_name) conjs[a.adset_name] = 1;
-  });
-  var fc = document.getElementById('f-campanha');
-  var fj = document.getElementById('f-conjunto');
-  fc.innerHTML = '<option value="">Todas as Campanhas</option>' +
-    Object.keys(camps).sort().map(function(k) { return '<option value="' + k + '">' + k + '</option>'; }).join('');
-  fj.innerHTML = '<option value="">Todos os Conjuntos</option>' +
-    Object.keys(conjs).sort().map(function(k) { return '<option value="' + k + '">' + k + '</option>'; }).join('');
-}
-
-function limparFiltros() {
-  document.getElementById('f-status').value = '';
-  document.getElementById('f-campanha').value = '';
-  document.getElementById('f-conjunto').value = '';
-  document.getElementById('f-busca').value = '';
-  aplicarFiltros();
-}
-
-// ── Facebook API ─────────────────────────────────────────────
-var INS_FIELDS = 'spend,impressions,clicks,ctr,cpc,cpm,reach,frequency,actions,cost_per_action_type';
-
-function extractLeads(ins) {
-  var leads = 0, cpl = 0;
-  if (ins.actions) ins.actions.forEach(function(a) {
-    if (a.action_type === 'lead' || a.action_type === 'onsite_conversion.lead_grouped') leads += parseInt(a.value || 0);
-  });
-  if (ins.cost_per_action_type) ins.cost_per_action_type.forEach(function(a) {
-    if (a.action_type === 'lead' || a.action_type === 'onsite_conversion.lead_grouped') cpl = parseFloat(a.value || 0);
-  });
-  return { leads: leads, cpl: cpl };
-}
-
-function fbFetch(path, callback, errEl) {
-  var token = getToken(), account = getAccount();
-  if (!token || !account) { alert('Configure o Facebook em Config!'); return; }
-  var ins = 'insights.date_preset(' + S.datePreset + '){' + INS_FIELDS + '}';
-  fetch('https://graph.facebook.com/v19.0/' + account + '/' + path + '&' + ins.split('{').join('fields_ins={') + '&access_token=' + token)
-    .then(function(r) { return r.json(); })
-    .then(function(d) { if (d.error) throw new Error(d.error.message); callback(d); })
-    .catch(function(e) { if (errEl) document.getElementById(errEl).innerHTML = '<div class="alert alert-error">Erro: ' + e.message + '</div>'; });
-}
-
-function syncCampaigns() {
-  var token = getToken(), account = getAccount();
-  if (!token || !account) { alert('Configure o Facebook em Config!'); return; }
-  var btn = document.getElementById('btn-sync-dash');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Sincronizando...';
-  var ins = 'insights.date_preset(' + S.datePreset + '){' + INS_FIELDS + '}';
-  var url = 'https://graph.facebook.com/v19.0/' + account + '/campaigns?fields=name,status,' + ins + '&limit=50&access_token=' + token;
-  xhrGet(url, function(d) {
-    S.campaigns = (d.data || []).map(function(c) {
-      var i = (c.insights && c.insights.data && c.insights.data[0]) || {};
-      var ld = extractLeads(i);
-      return { name: c.name, status: c.status, spend: parseFloat(i.spend||0), impressions: parseInt(i.impressions||0), clicks: parseInt(i.clicks||0), ctr: parseFloat(i.ctr||0), cpc: parseFloat(i.cpc||0), cpm: parseFloat(i.cpm||0), reach: parseInt(i.reach||0), frequency: parseFloat(i.frequency||0), leads: ld.leads, cpl: ld.cpl };
-    });
-    S.allData.campanhas = d.data || [];
-    S.allData.campanhas.forEach(function(c) { c.campaign_name = c.name; });
-    applyFilters();
-    updateMetrics(S.campaigns);
-    btn.disabled = false; btn.innerHTML = '&#128260; Sincronizar Facebook';
-  }, null);
-  btn.disabled = false; btn.innerHTML = '&#128260; Sincronizar Facebook';
-}
-
+// SYNC ADSETS
 function syncAdsets() {
-  var token = getToken(), account = getAccount();
-  if (!token || !account) return;
-  var ins = 'insights.date_preset(' + S.datePreset + '){' + INS_FIELDS + '}';
-  var url = 'https://graph.facebook.com/v19.0/' + account + '/adsets?fields=name,effective_status,campaign{name},' + ins + '&limit=100&access_token=' + token;
-  xhrGet(url, function(d) {
-    S.allData.conjuntos = (d.data || []).map(function(a) {
-      a.campaign_name = (a.campaign && a.campaign.name) || '-';
-      return a;
-    });
-    popularFiltros();
-    aplicarFiltros();
-  }, 'tab-conjuntos');
+  var t=tok(),a=acc(); if(!t||!a) return;
+  var ins='insights.date_preset('+D.period+'){'+INS+'}';
+  var url='https://graph.facebook.com/v19.0/'+a+'/adsets?fields=name,effective_status,campaign{name},'+ins+'&limit=100&access_token='+t;
+  var x=new XMLHttpRequest();
+  x.open('GET',url);
+  x.onreadystatechange=function(){
+    if(x.readyState!==4) return;
+    try{
+      var d=JSON.parse(x.responseText);
+      if(d.error){ document.getElementById('tab-j').innerHTML='<div class="al al-e">Erro: '+d.error.message+'</div>'; return; }
+      D.allJ=(d.data||[]).map(function(r){ r.campaign_name=(r.campaign&&r.campaign.name)||'-'; return r; });
+      populateFilters(); applyAF();
+    }catch(e){}
+  };
+  x.send();
 }
 
+// SYNC ADS
 function syncAds() {
-  var token = getToken(), account = getAccount();
-  if (!token || !account) return;
-  var ins = 'insights.date_preset(' + S.datePreset + '){' + INS_FIELDS + '}';
-  var url = 'https://graph.facebook.com/v19.0/' + account + '/ads?fields=name,effective_status,adset{name},campaign{name},' + ins + '&limit=100&access_token=' + token;
-  xhrGet(url, function(d) {
-    S.allData.ads = (d.data || []).map(function(a) {
-      a.campaign_name = (a.campaign && a.campaign.name) || '-';
-      a.adset_name = (a.adset && a.adset.name) || '-';
-      return a;
-    });
-    popularFiltros();
-    aplicarFiltros();
-  }, 'tab-ads');
+  var t=tok(),a=acc(); if(!t||!a) return;
+  var ins='insights.date_preset('+D.period+'){'+INS+'}';
+  var url='https://graph.facebook.com/v19.0/'+a+'/ads?fields=name,effective_status,adset{name},campaign{name},'+ins+'&limit=100&access_token='+t;
+  var x=new XMLHttpRequest();
+  x.open('GET',url);
+  x.onreadystatechange=function(){
+    if(x.readyState!==4) return;
+    try{
+      var d=JSON.parse(x.responseText);
+      if(d.error){ document.getElementById('tab-a').innerHTML='<div class="al al-e">Erro: '+d.error.message+'</div>'; return; }
+      D.allA=(d.data||[]).map(function(r){ r.campaign_name=(r.campaign&&r.campaign.name)||'-'; r.adset_name=(r.adset&&r.adset.name)||'-'; return r; });
+      populateFilters(); applyAF();
+    }catch(e){}
+  };
+  x.send();
 }
 
-function syncAll() { syncCampaigns(); syncAdsets(); syncAds(); }
+function syncAll(){ syncCamp(); syncAdsets(); syncAds(); }
 
-// ── Metricas Dashboard ───────────────────────────────────────
-function updateMetrics(list) {
-  var c = list || S.campaigns;
-  var spend  = c.reduce(function(s,x){return s+x.spend;},0);
-  var imp    = c.reduce(function(s,x){return s+x.impressions;},0);
-  var clicks = c.reduce(function(s,x){return s+x.clicks;},0);
-  var reach  = c.reduce(function(s,x){return s+(x.reach||0);},0);
-  var leads  = c.reduce(function(s,x){return s+(x.leads||0);},0);
-  var avgCtr = c.length ? c.reduce(function(s,x){return s+x.ctr;},0)/c.length : 0;
-  var avgFreq= c.length ? c.reduce(function(s,x){return s+(x.frequency||0);},0)/c.length : 0;
-  var avgCpc = clicks>0 ? spend/clicks : 0;
-  var cpl    = leads>0  ? spend/leads  : 0;
-  var active = S.campaigns.filter(function(x){return x.status==='ACTIVE';}).length;
-  document.getElementById('m-spend').textContent   = 'R$ '+spend.toLocaleString('pt-BR',{minimumFractionDigits:2});
-  document.getElementById('m-leads').textContent   = leads;
-  document.getElementById('m-cpl-val').textContent = cpl>0 ? 'R$ '+cpl.toFixed(2) : '-';
-  document.getElementById('m-reach').textContent   = reach.toLocaleString('pt-BR');
-  document.getElementById('m-freq').textContent    = 'Freq: '+avgFreq.toFixed(1)+'x';
-  document.getElementById('m-imp').textContent     = imp.toLocaleString('pt-BR');
-  document.getElementById('m-clicks').textContent  = clicks.toLocaleString('pt-BR');
-  document.getElementById('m-cpc-sub').textContent = 'CPC: R$ '+avgCpc.toFixed(2);
-  document.getElementById('m-ctr').textContent     = avgCtr.toFixed(2)+'%';
-  document.getElementById('m-total').textContent   = active;
-  document.getElementById('m-total-sub').textContent = 'de '+S.campaigns.length+' total';
+// METRICS
+function updMetrics(c) {
+  var sp=c.reduce(function(s,x){return s+x.spend;},0);
+  var im=c.reduce(function(s,x){return s+x.impressions;},0);
+  var cl=c.reduce(function(s,x){return s+x.clicks;},0);
+  var rc=c.reduce(function(s,x){return s+(x.reach||0);},0);
+  var ld=c.reduce(function(s,x){return s+(x.leads||0);},0);
+  var ct=c.length?c.reduce(function(s,x){return s+x.ctr;},0)/c.length:0;
+  var fq=c.length?c.reduce(function(s,x){return s+(x.frequency||0);},0)/c.length:0;
+  var cp=cl>0?sp/cl:0; var cpl=ld>0?sp/ld:0;
+  var ac=D.camps.filter(function(x){return x.status==='ACTIVE';}).length;
+  document.getElementById('d-sp').textContent='R$ '+sp.toLocaleString('pt-BR',{minimumFractionDigits:2});
+  document.getElementById('d-ld').textContent=ld;
+  document.getElementById('d-cpl').textContent=cpl>0?'R$ '+cpl.toFixed(2):'-';
+  document.getElementById('d-rc').textContent=rc.toLocaleString('pt-BR');
+  document.getElementById('d-fq').textContent='Freq: '+fq.toFixed(1)+'x';
+  document.getElementById('d-im').textContent=im.toLocaleString('pt-BR');
+  document.getElementById('d-cl').textContent=cl.toLocaleString('pt-BR');
+  document.getElementById('d-cpc').textContent='CPC: R$ '+cp.toFixed(2);
+  document.getElementById('d-ct').textContent=ct.toFixed(2)+'%';
+  document.getElementById('d-ac').textContent=ac;
+  document.getElementById('d-tc').textContent='de '+D.camps.length+' total';
 }
 
-// ── Tabela Dashboard ─────────────────────────────────────────
-function renderDashTable(list) {
-  var c = list || S.campaigns;
-  if (!c.length) { document.getElementById('dash-table').innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Nenhuma campanha encontrada.</p>'; return; }
-  var html='<table><thead><tr><th>Campanha</th><th>Status</th><th>Gasto</th><th>Leads</th><th>CPL</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Impressoes</th><th>Alcance</th><th>Freq</th></tr></thead><tbody>';
-  c.forEach(function(c){
-    var b=c.status==='ACTIVE'?'badge-green':c.status==='PAUSED'?'badge-yellow':'badge-gray';
-    var l=c.status==='ACTIVE'?'Ativo':'Pausado';
-    var cplC=c.cpl>0?(c.cpl<30?'good':c.cpl<80?'warn':'bad'):'';
-    html+='<tr><td><strong>'+c.name+'</strong></td><td><span class="badge '+b+'">'+l+'</span></td>'
-      +'<td>R$ '+c.spend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td>'
-      +'<td><strong>'+c.leads+'</strong></td>'
-      +'<td class="'+cplC+'"><strong>'+(c.cpl>0?'R$ '+c.cpl.toFixed(2):'-')+'</strong></td>'
-      +'<td>'+c.ctr.toFixed(2)+'%</td><td>R$ '+c.cpc.toFixed(2)+'</td><td>R$ '+c.cpm.toFixed(2)+'</td>'
-      +'<td>'+c.impressions.toLocaleString('pt-BR')+'</td><td>'+c.reach.toLocaleString('pt-BR')+'</td>'
-      +'<td>'+c.frequency.toFixed(1)+'x</td></tr>';
+// DASH TABLE
+function applyF() {
+  var sf=document.getElementById('sf').value;
+  var sq=(document.getElementById('sq').value||'').toLowerCase();
+  var sb=document.getElementById('sb').value;
+  var r=D.camps.filter(function(c){
+    if(sf&&c.status!==sf) return false;
+    if(sq&&c.name.toLowerCase().indexOf(sq)<0) return false;
+    return true;
   });
-  document.getElementById('dash-table').innerHTML=html+'</tbody></table>';
+  r.sort(function(a,b){return b[sb]-a[sb];});
+  renderDashT(r); updMetrics(r);
 }
 
-// ── Tabela Lead (Anuncios) ───────────────────────────────────
-function qualCPL(cpl){return cpl===0?'':cpl<30?'good':cpl<80?'warn':'bad';}
+function renderDashT(c) {
+  if(!c.length){ document.getElementById('d-tb').innerHTML='<p style="color:var(--mu);text-align:center;padding:20px">Nenhuma campanha encontrada.</p>'; return; }
+  var h='<table><thead><tr><th>Campanha</th><th>Status</th><th>Gasto</th><th>Leads</th><th>CPL</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Impressoes</th><th>Alcance</th><th>Freq</th></tr></thead><tbody>';
+  c.forEach(function(r){
+    var b=r.status==='ACTIVE'?'bk-g':r.status==='PAUSED'?'bk-y':'bk-x';
+    var l=r.status==='ACTIVE'?'Ativo':'Pausado';
+    var cc=r.cpl>0?(r.cpl<30?'good':r.cpl<80?'warn':'bad'):'';
+    h+='<tr><td><strong>'+r.name+'</strong></td><td><span class="bk '+b+'">'+l+'</span></td>'
+      +'<td>R$ '+r.spend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td>'
+      +'<td><strong>'+r.leads+'</strong></td>'
+      +'<td class="'+cc+'"><strong>'+(r.cpl>0?'R$ '+r.cpl.toFixed(2):'-')+'</strong></td>'
+      +'<td>'+r.ctr.toFixed(2)+'%</td><td>R$ '+r.cpc.toFixed(2)+'</td><td>R$ '+r.cpm.toFixed(2)+'</td>'
+      +'<td>'+r.impressions.toLocaleString('pt-BR')+'</td><td>'+r.reach.toLocaleString('pt-BR')+'</td>'
+      +'<td>'+r.frequency.toFixed(1)+'x</td></tr>';
+  });
+  document.getElementById('d-tb').innerHTML=h+'</tbody></table>';
+}
 
-function buildLeadTable(data, containerId, showCamp, showAdset) {
-  if (!data.length) { document.getElementById(containerId).innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Nenhum resultado.</p>'; return; }
-  var extraH='';
-  if(showCamp) extraH+='<th>Campanha</th>';
-  if(showAdset) extraH+='<th>Conjunto</th>';
-  var html='<div style="overflow-x:auto"><table><thead><tr><th>Nome</th>'+extraH+'<th>Status</th><th>Gasto</th><th>Leads</th><th>CPL</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Impressoes</th><th>Alcance</th><th>Freq</th></tr></thead><tbody>';
+// ADS TABS
+function showTab(t,el) {
+  ['c','j','a'].forEach(function(x){ document.getElementById('tab-'+x).style.display='none'; document.getElementById('t-'+x).classList.remove('on'); });
+  document.getElementById('tab-'+t).style.display='block'; el.classList.add('on');
+  applyAF();
+}
+
+function populateFilters() {
+  var ca={},cj={};
+  D.allJ.forEach(function(x){ if(x.campaign_name) ca[x.campaign_name]=1; });
+  D.allA.forEach(function(x){ if(x.campaign_name) ca[x.campaign_name]=1; if(x.adset_name) cj[x.adset_name]=1; });
+  var fc=document.getElementById('f-ca'), fj=document.getElementById('f-cj');
+  fc.innerHTML='<option value="">Todas as Campanhas</option>'+Object.keys(ca).sort().map(function(k){return '<option>'+k+'</option>';}).join('');
+  fj.innerHTML='<option value="">Todos os Conjuntos</option>'+Object.keys(cj).sort().map(function(k){return '<option>'+k+'</option>';}).join('');
+}
+
+function filterData(data) {
+  var st=document.getElementById('f-st').value;
+  var ca=document.getElementById('f-ca').value;
+  var cj=document.getElementById('f-cj').value;
+  var bq=(document.getElementById('f-bq').value||'').toLowerCase();
+  return data.filter(function(x){
+    var e=x.effective_status||x.status||'';
+    if(st&&e.toUpperCase()!==st) return false;
+    if(ca&&x.campaign_name!==ca) return false;
+    if(cj&&x.adset_name!==cj) return false;
+    if(bq&&x.name.toLowerCase().indexOf(bq)<0) return false;
+    return true;
+  });
+}
+
+function applyAF() {
+  var active=document.querySelector('.tb.on');
+  if(!active) return;
+  var id=active.id;
+  if(id==='t-c') buildT(filterData(D.allC),'tab-c',false,false);
+  else if(id==='t-j') buildT(filterData(D.allJ),'tab-j',true,false);
+  else buildT(filterData(D.allA),'tab-a',true,true);
+}
+
+function clearAF() {
+  document.getElementById('f-st').value='';
+  document.getElementById('f-ca').value='';
+  document.getElementById('f-cj').value='';
+  document.getElementById('f-bq').value='';
+  applyAF();
+}
+
+function cplClass(v){ return v===0?'':v<30?'good':v<80?'warn':'bad'; }
+
+function buildT(data,id,showC,showA) {
+  if(!data.length){ document.getElementById(id).innerHTML='<p style="color:var(--mu);text-align:center;padding:20px">Nenhum resultado.</p>'; return; }
+  var eh=''; if(showC) eh+='<th>Campanha</th>'; if(showA) eh+='<th>Conjunto</th>';
+  var h='<div style="overflow-x:auto"><table><thead><tr><th>Nome</th>'+eh+'<th>Status</th><th>Gasto</th><th>Leads</th><th>CPL</th><th>CTR</th><th>CPC</th><th>CPM</th><th>Impressoes</th><th>Alcance</th><th>Freq</th></tr></thead><tbody>';
   data.forEach(function(x){
-    var ins=(x.insights&&x.insights.data&&x.insights.data[0])||{};
-    var ld=extractLeads(ins);
-    var spend=parseFloat(ins.spend||0),imp=parseInt(ins.impressions||0),clicks=parseInt(ins.clicks||0);
-    var ctr=parseFloat(ins.ctr||0),cpc=parseFloat(ins.cpc||0),cpm=parseFloat(ins.cpm||0);
-    var reach=parseInt(ins.reach||0),freq=parseFloat(ins.frequency||0);
-    var eff=x.effective_status||x.status||'';
-    var bclass=eff==='ACTIVE'?'badge-green':eff==='PAUSED'?'badge-yellow':eff==='CAMPAIGN_PAUSED'?'badge-red':'badge-gray';
-    var blast=eff==='ACTIVE'?'Ativo':eff==='PAUSED'?'Pausado':eff==='CAMPAIGN_PAUSED'?'Camp. Pausada':eff;
-    var extraD='';
-    if(showCamp) extraD+='<td style="font-size:12px;color:var(--muted);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+(x.campaign_name||'-')+'">'+(x.campaign_name||'-')+'</td>';
-    if(showAdset) extraD+='<td style="font-size:12px;color:var(--muted);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+(x.adset_name||'-')+'">'+(x.adset_name||'-')+'</td>';
-    html+='<tr><td><strong>'+x.name+'</strong></td>'+extraD
-      +'<td><span class="badge '+bclass+'">'+blast+'</span></td>'
-      +'<td>R$ '+spend.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td>'
-      +'<td><strong>'+ld.leads+'</strong></td>'
-      +'<td class="'+qualCPL(ld.cpl)+'"><strong>'+(ld.cpl>0?'R$ '+ld.cpl.toFixed(2):'-')+'</strong></td>'
-      +'<td>'+ctr.toFixed(2)+'%</td><td>R$ '+cpc.toFixed(2)+'</td><td>R$ '+cpm.toFixed(2)+'</td>'
-      +'<td>'+imp.toLocaleString('pt-BR')+'</td><td>'+reach.toLocaleString('pt-BR')+'</td>'
-      +'<td>'+freq.toFixed(1)+'x</td></tr>';
+    var i=(x.insights&&x.insights.data&&x.insights.data[0])||{};
+    var ld=getLeads(i);
+    var sp=parseFloat(i.spend||0),im=parseInt(i.impressions||0),cl=parseInt(i.clicks||0);
+    var ct=parseFloat(i.ctr||0),cp=parseFloat(i.cpc||0),cm=parseFloat(i.cpm||0);
+    var rc=parseInt(i.reach||0),fq=parseFloat(i.frequency||0);
+    var e=x.effective_status||x.status||'';
+    var bc=e==='ACTIVE'?'bk-g':e==='PAUSED'?'bk-y':e==='CAMPAIGN_PAUSED'?'bk-r':'bk-x';
+    var bl=e==='ACTIVE'?'Ativo':e==='PAUSED'?'Pausado':e==='CAMPAIGN_PAUSED'?'Camp.Pausada':e;
+    var ed='';
+    if(showC) ed+='<td style="font-size:12px;color:var(--mu);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(x.campaign_name||'-')+'">'+(x.campaign_name||'-')+'</td>';
+    if(showA) ed+='<td style="font-size:12px;color:var(--mu);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(x.adset_name||'-')+'">'+(x.adset_name||'-')+'</td>';
+    h+='<tr><td><strong>'+x.name+'</strong></td>'+ed+'<td><span class="bk '+bc+'">'+bl+'</span></td>'
+      +'<td>R$ '+sp.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td>'
+      +'<td><strong>'+ld.l+'</strong></td>'
+      +'<td class="'+cplClass(ld.c)+'"><strong>'+(ld.c>0?'R$ '+ld.c.toFixed(2):'-')+'</strong></td>'
+      +'<td>'+ct.toFixed(2)+'%</td><td>R$ '+cp.toFixed(2)+'</td><td>R$ '+cm.toFixed(2)+'</td>'
+      +'<td>'+im.toLocaleString('pt-BR')+'</td><td>'+rc.toLocaleString('pt-BR')+'</td>'
+      +'<td>'+fq.toFixed(1)+'x</td></tr>';
   });
-  document.getElementById(containerId).innerHTML=html+'</tbody></table></div>';
+  document.getElementById(id).innerHTML=h+'</tbody></table></div>';
 }
 
-// ── Claude ───────────────────────────────────────────────────
-function callClaude(prompt) {
-  var key=getClaudeKey();
-  if(!key) return Promise.reject(new Error('Configure a Claude API Key em Config'));
-  return fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1500,messages:[{role:'user',content:prompt}]})
-  }).then(function(r){return r.json();}).then(function(d){if(d.error)throw new Error(d.error.message);return d.content[0].text;});
+// CLAUDE
+function claude(prompt,sys,history,cb,errCb) {
+  var k=key(); if(!k){ errCb('Configure a Claude API Key em Config'); return; }
+  var body={model:'claude-haiku-4-5-20251001',max_tokens:1500};
+  if(sys) body.system=sys;
+  body.messages=history||[{role:'user',content:prompt}];
+  var x=new XMLHttpRequest();
+  x.open('POST','https://api.anthropic.com/v1/messages');
+  x.setRequestHeader('Content-Type','application/json');
+  x.setRequestHeader('x-api-key',k);
+  x.setRequestHeader('anthropic-version','2023-06-01');
+  x.setRequestHeader('anthropic-dangerous-direct-browser-access','true');
+  x.onreadystatechange=function(){
+    if(x.readyState!==4) return;
+    try{ var d=JSON.parse(x.responseText); if(d.error) errCb(d.error.message); else cb(d.content[0].text); }
+    catch(e){ errCb('Erro na resposta'); }
+  };
+  x.send(JSON.stringify(body));
 }
 
-function callClaudeChat(system,history) {
-  var key=getClaudeKey();
-  if(!key) return Promise.reject(new Error('Configure a Claude API Key em Config'));
-  return fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1500,system:system,messages:history})
-  }).then(function(r){return r.json();}).then(function(d){if(d.error)throw new Error(d.error.message);return d.content[0].text;});
+// CHAT
+function addMsg(role,text) {
+  var m=document.getElementById('msgs');
+  var d=document.createElement('div'); d.className='msg '+(role==='me'?'me':'ai');
+  d.innerHTML='<div class="av">'+(role==='me'?'&#128100;':'&#129302;')+'</div><div class="bub">'+text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</div>';
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
+}
+function addTyping() {
+  var m=document.getElementById('msgs');
+  var d=document.createElement('div'); d.className='msg ai'; d.id='typ';
+  d.innerHTML='<div class="av">&#129302;</div><div class="bub dot"><span></span><span></span><span></span></div>';
+  m.appendChild(d); m.scrollTop=m.scrollHeight;
+}
+function rmTyping(){ var e=document.getElementById('typ'); if(e) e.remove(); }
+
+function campData() {
+  return D.camps.length
+    ?D.camps.map(function(c){return '- '+c.name+' | '+c.status+' | R$'+c.spend.toFixed(2)+' | leads:'+c.leads+' | CPL:R$'+c.cpl.toFixed(2)+' | CTR:'+c.ctr.toFixed(2)+'%';}).join('\n')
+    :'Nenhuma campanha. Dicas gerais MCMV SP.';
 }
 
-// ── Chat ─────────────────────────────────────────────────────
-function addChatMsg(role,text){
-  var msgs=document.getElementById('chat-messages');
-  var div=document.createElement('div');div.className='chat-msg '+(role==='user'?'user':'ai');
-  div.innerHTML='<div class="chat-avatar">'+(role==='user'?'&#128100;':'&#129302;')+'</div><div class="chat-bubble">'+text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</div>';
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function addTyping(){
-  var msgs=document.getElementById('chat-messages');
-  var div=document.createElement('div');div.className='chat-msg ai';div.id='typing-ind';
-  div.innerHTML='<div class="chat-avatar">&#129302;</div><div class="chat-bubble chat-typing"><span></span><span></span><span></span></div>';
-  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
-}
-function removeTyping(){var el=document.getElementById('typing-ind');if(el)el.remove();}
-
-function getDados(){
-  return S.campaigns.length
-    ?S.campaigns.map(function(c){return '- '+c.name+' | '+c.status+' | R$'+c.spend.toFixed(2)+' | leads:'+c.leads+' | CPL:R$'+c.cpl.toFixed(2)+' | CTR:'+c.ctr.toFixed(2)+'% | CPC:R$'+c.cpc.toFixed(2);}).join('\n')
-    :'Nenhuma campanha carregada.';
-}
-
-function analisarIA(){
-  var btn=document.getElementById('btn-analisar');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span>';
+function doAnalyze() {
+  var btn=document.getElementById('ba'); btn.disabled=true; btn.innerHTML='<span class="spin"></span>';
   addTyping();
-  var sys='Voce e especialista em midia paga para MCMV em Sao Paulo. Dados das campanhas:\n\n'+getDados();
-  S.chatHistory=[{role:'user',content:'Faca uma analise completa com: 1. Diagnostico Geral 2. Top 3 Acoes Imediatas 3. O que Pausar 4. O que Escalar 5. Dicas MCMV SP. Use emojis e seja direto.'}];
-  callClaudeChat(sys,S.chatHistory).then(function(text){removeTyping();S.chatHistory.push({role:'assistant',content:text});addChatMsg('ai',text);})
-  .catch(function(e){removeTyping();addChatMsg('ai','Erro: '+e.message);})
-  .finally(function(){btn.disabled=false;btn.innerHTML='&#128202; Analisar Campanhas';});
+  var sys='Especialista em midia paga MCMV Sao Paulo. Campanhas:\n\n'+campData();
+  D.chat=[{role:'user',content:'Analise completa com: 1.Diagnostico 2.Top 3 Acoes 3.O que Pausar 4.O que Escalar 5.Dicas MCMV SP. Use emojis.'}];
+  claude(null,sys,D.chat,function(t){ rmTyping(); D.chat.push({role:'assistant',content:t}); addMsg('ai',t); btn.disabled=false; btn.innerHTML='&#128202; Analisar'; },
+  function(e){ rmTyping(); addMsg('ai','Erro: '+e); btn.disabled=false; btn.innerHTML='&#128202; Analisar'; });
 }
 
-function enviarChat(){
-  var input=document.getElementById('chat-input');
-  var msg=input.value.trim();if(!msg)return;
-  input.value='';input.style.height='44px';
-  addChatMsg('user',msg);
-  var sys='Voce e especialista em midia paga para MCMV em Sao Paulo. Dados:\n\n'+getDados();
-  S.chatHistory.push({role:'user',content:msg});
-  addTyping();
-  var btn=document.getElementById('btn-enviar');btn.disabled=true;
-  callClaudeChat(sys,S.chatHistory).then(function(text){removeTyping();S.chatHistory.push({role:'assistant',content:text});addChatMsg('ai',text);})
-  .catch(function(e){removeTyping();addChatMsg('ai','Erro: '+e.message);})
-  .finally(function(){btn.disabled=false;});
+function doSend() {
+  var inp=document.getElementById('ci'); var msg=inp.value.trim(); if(!msg) return;
+  inp.value=''; inp.style.height='42px'; addMsg('me',msg);
+  var sys='Especialista em midia paga MCMV Sao Paulo. Dados:\n\n'+campData();
+  D.chat.push({role:'user',content:msg}); addTyping();
+  var btn=document.getElementById('bs'); btn.disabled=true;
+  claude(null,sys,D.chat,function(t){ rmTyping(); D.chat.push({role:'assistant',content:t}); addMsg('ai',t); btn.disabled=false; },
+  function(e){ rmTyping(); addMsg('ai','Erro: '+e); btn.disabled=false; });
+}
+function ckd(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); doSend(); } }
+function crs(el){ el.style.height='42px'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
+function useSug(btn){ document.getElementById('ci').value=btn.textContent; doSend(); }
+
+// CRIATIVOS
+function onUpload(e){ var f=e.target.files[0]; if(!f) return; document.getElementById('ul').innerHTML='Arquivo: <strong>'+f.name+'</strong>'; D.book={name:f.name}; }
+
+function setStep(n){
+  for(var i=1;i<=4;i++){
+    var s=document.getElementById('st'+i); s.classList.remove('on','dn');
+    if(i<n) s.classList.add('dn'); else if(i===n) s.classList.add('on');
+    var d=document.getElementById('cs'+i); if(d) d.style.display=i===n?'block':'none';
+  }
 }
 
-function chatKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviarChat();}}
-function autoResize(el){el.style.height='44px';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-function usarSugestao(btn){document.getElementById('chat-input').value=btn.textContent;enviarChat();}
-
-// ── Criativos ────────────────────────────────────────────────
-function handleBookUpload(e){
-  var f=e.target.files[0];if(!f)return;
-  document.getElementById('upload-label').innerHTML='Arquivo: <strong>'+f.name+'</strong>';
-  S.bookFile={name:f.name};
+function doAnalyzeBook() {
+  var desc=document.getElementById('md').value.trim();
+  if(!D.book&&!desc){ alert('Envie o book ou descreva!'); return; }
+  var btn=document.getElementById('bab'); btn.disabled=true; btn.innerHTML='Analisando...';
+  setStep(2);
+  var p=desc
+    ?'Retorne APENAS JSON valido sem markdown para este empreendimento MCMV:\n"'+desc+'"\n\n{"nome":"","construtora":"","bairro":"","tipologia":"","area":"","preco_min":"","preco_max":"","subsidio":"","entrada":"","parcela":"","diferenciais":[],"lazer":[],"localizacao_pontos":[],"faixa_mcmv":"","status_obra":"","previsao_entrega":""}'
+    :'Book "'+D.book.name+'". Retorne APENAS JSON valido:\n{"nome":"inferido","construtora":"","bairro":"","tipologia":"","area":"","preco_min":"","preco_max":"","subsidio":"","entrada":"","parcela":"","diferenciais":[],"lazer":[],"localizacao_pontos":[],"faixa_mcmv":"","status_obra":"","previsao_entrega":""}';
+  claude(p,null,null,function(r){
+    try{ D.info=JSON.parse(r.replace(/```json|```/g,'').trim()); renderInfo(); setTimeout(renderQs,700); }
+    catch(e){ document.getElementById('ie').innerHTML='<div class="al al-e">Erro ao processar</div>'; }
+    btn.disabled=false; btn.innerHTML='Analisar e Continuar';
+  },function(e){ document.getElementById('ie').innerHTML='<div class="al al-e">Erro: '+e+'</div>'; btn.disabled=false; btn.innerHTML='Analisar e Continuar'; });
 }
 
-function analisarBook(){
-  var desc=document.getElementById('manual-desc').value.trim();
-  if(!S.bookFile&&!desc){alert('Envie o book ou descreva o empreendimento!');return;}
-  var btn=document.getElementById('btn-analisar-book');
-  btn.disabled=true;btn.innerHTML='<span class="spinner spinner-dark"></span> Analisando...';
-  ['s1','s2','s3','s4'].forEach(function(id){document.getElementById(id).style.display='none';});
-  document.getElementById('s2').style.display='block';
-  document.getElementById('step1').classList.remove('active');document.getElementById('step1').classList.add('done');
-  document.getElementById('step2').classList.add('active');
-  var prompt=desc
-    ?'Analise o empreendimento MCMV abaixo e retorne APENAS JSON valido sem markdown:\n\n"'+desc+'"\n\n{"nome":"","construtora":"","bairro":"","tipologia":"","area":"","preco_min":"","preco_max":"","subsidio":"","entrada":"","parcela":"","diferenciais":[],"lazer":[],"localizacao_pontos":[],"faixa_mcmv":"","status_obra":"","previsao_entrega":""}'
-    :'Book MCMV: "'+S.bookFile.name+'". Retorne APENAS JSON valido sem markdown:\n{"nome":"inferido","construtora":"","bairro":"","tipologia":"","area":"","preco_min":"","preco_max":"","subsidio":"","entrada":"","parcela":"","diferenciais":[],"lazer":[],"localizacao_pontos":[],"faixa_mcmv":"","status_obra":"","previsao_entrega":""}';
-  callClaude(prompt).then(function(resp){
-    var clean=resp.replace(/```json/g,'').replace(/```/g,'').trim();
-    S.infoExtraida=JSON.parse(clean);
-    renderInfoExtraida();
-    setTimeout(renderPerguntas,800);
-  }).catch(function(e){
-    document.getElementById('info-extraida').innerHTML='<div class="alert alert-error">Erro: '+e.message+'</div>';
-  }).finally(function(){btn.disabled=false;btn.innerHTML='Analisar e Continuar';});
+function renderInfo(){
+  var i=D.info;
+  var fs=[['Nome',i.nome],['Construtora',i.construtora],['Bairro',i.bairro],['Tipologia',i.tipologia],['Area',i.area],['Preco',(i.preco_min||'')+' - '+(i.preco_max||'')],['Subsidio',i.subsidio],['Entrega',i.previsao_entrega]];
+  var h='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">';
+  fs.forEach(function(f){ if(f[1]&&f[1].trim()&&f[1].trim()!=' - ') h+='<div style="background:#f8fafc;padding:9px;border-radius:8px;border:1px solid var(--br)"><div style="font-size:11px;color:var(--mu);font-weight:600">'+f[0]+'</div><div style="font-size:13px;font-weight:700;margin-top:2px">'+f[1]+'</div></div>'; });
+  h+='</div>';
+  if(i.diferenciais&&i.diferenciais.length) h+='<div style="margin-bottom:6px"><strong>Diferenciais:</strong> '+i.diferenciais.join(', ')+'</div>';
+  if(i.lazer&&i.lazer.length) h+='<div><strong>Lazer:</strong> '+i.lazer.join(', ')+'</div>';
+  document.getElementById('ie').innerHTML=h;
 }
 
-function renderInfoExtraida(){
-  var i=S.infoExtraida;
-  var campos=[['Nome',i.nome],['Construtora',i.construtora],['Bairro',i.bairro],['Tipologia',i.tipologia],['Area',i.area],['Preco',(i.preco_min||'')+' - '+(i.preco_max||'')],['Subsidio',i.subsidio],['Entrega',i.previsao_entrega]];
-  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">';
-  campos.forEach(function(c){if(c[1]&&c[1].trim()&&c[1].trim()!=' - ')html+='<div style="background:#f8fafc;padding:10px;border-radius:8px;border:1px solid var(--border)"><div style="font-size:11px;color:var(--muted);font-weight:600">'+c[0]+'</div><div style="font-size:13px;font-weight:700;margin-top:2px">'+c[1]+'</div></div>';});
-  html+='</div>';
-  if(i.diferenciais&&i.diferenciais.length)html+='<div style="margin-bottom:8px"><strong>Diferenciais:</strong> '+i.diferenciais.join(', ')+'</div>';
-  if(i.lazer&&i.lazer.length)html+='<div><strong>Lazer:</strong> '+i.lazer.join(', ')+'</div>';
-  document.getElementById('info-extraida').innerHTML=html;
-}
-
-function renderPerguntas(){
-  document.getElementById('step2').classList.remove('active');document.getElementById('step2').classList.add('done');
-  document.getElementById('step3').classList.add('active');
-  document.getElementById('s2').style.display='none';document.getElementById('s3').style.display='block';
-  var i=S.infoExtraida,pp=[];
-  if(!i.nome)pp.push({id:'nome',label:'Nome do empreendimento',tipo:'text',ph:'Ex: Residencial Olimpia'});
-  if(!i.construtora)pp.push({id:'construtora',label:'Construtora',tipo:'text',ph:'Ex: MRV, Tenda'});
-  if(!i.bairro)pp.push({id:'bairro',label:'Bairro / Regiao',tipo:'text',ph:'Ex: Itaquera'});
-  pp.push({id:'endereco',label:'Endereco ou ponto de referencia',tipo:'text',ph:'Ex: Av. Ragueb Chohfi, 1000'});
-  pp.push({id:'metro',label:'Metro/CPTM mais proximo e distancia',tipo:'text',ph:'Ex: Metro Itaquera - 800m'});
-  pp.push({id:'pontos_ref',label:'Pontos de referencia proximos',tipo:'textarea',ph:'Ex: Shopping 2km, Hospital 1km...'});
-  pp.push({id:'dorms',label:'Dormitorios',tipo:'sel',op:['1 dormitorio','2 dormitorios','3 dormitorios','1 e 2 dormitorios','2 e 3 dormitorios']});
-  pp.push({id:'area_util',label:'Area util',tipo:'text',ph:'Ex: 42m2 a 55m2'});
-  pp.push({id:'vaga',label:'Vaga de garagem',tipo:'sel',op:['1 vaga inclusa','Vaga coberta inclusa','Vaga opcional','Nao possui']});
-  pp.push({id:'unidades',label:'Unidades disponiveis',tipo:'text',ph:'Ex: 120 unidades, 30 disponiveis'});
-  pp.push({id:'lazer',label:'Itens de lazer',tipo:'textarea',ph:'Ex: Piscina, salao de festas, playground...'});
-  pp.push({id:'seguranca',label:'Seguranca',tipo:'text',ph:'Ex: Portaria 24h, cameras, biometria'});
-  pp.push({id:'faixa',label:'Faixa MCMV',tipo:'sel',op:['Faixa 1 (ate R$ 2.640/mes)','Faixa 2 (ate R$ 4.400/mes)','Faixa 3 (ate R$ 8.000/mes)']});
-  if(!i.subsidio)pp.push({id:'subsidio',label:'Subsidio do governo',tipo:'text',ph:'Ex: ate R$ 55.000'});
-  if(!i.entrada)pp.push({id:'entrada',label:'Entrada',tipo:'text',ph:'Ex: a partir de R$ 5.000, FGTS aceito'});
-  if(!i.parcela)pp.push({id:'parcela',label:'Parcela mensal',tipo:'text',ph:'Ex: a partir de R$ 450/mes'});
-  pp.push({id:'status_obra',label:'Status da obra',tipo:'sel',op:['Na planta','Em construcao','Pronto para morar','Entregando chaves']});
-  pp.push({id:'publico',label:'Publico-alvo',tipo:'sel',op:['Jovens casais','Familias com filhos','Trabalhadores solo','Primeira compra','Todos']});
-  pp.push({id:'objetivo',label:'Objetivo do anuncio',tipo:'sel',op:['Gerar lead (formulario Facebook)','WhatsApp','Visita ao stand','Ligar agora']});
-  pp.push({id:'tom',label:'Tom',tipo:'sel',op:['Emocional (sonho da casa propria)','Racional (numeros)','Urgencia (ultimas unidades)','Aspiracional (nova vida)']});
-  pp.push({id:'cta',label:'CTA',tipo:'text',ph:'Ex: Fale com um corretor agora'});
-  pp.push({id:'imagens',label:'Imagens que vai anexar',tipo:'textarea',ph:'Ex: fachada, sala decorada, piscina, planta...'});
-  S.perguntasList=pp;
-  document.getElementById('perguntas-box').innerHTML=pp.map(function(p){
-    var inp=p.tipo==='sel'?'<select id="pq-'+p.id+'">'+p.op.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select>'
-      :p.tipo==='textarea'?'<textarea id="pq-'+p.id+'" placeholder="'+(p.ph||'')+'"></textarea>'
-      :'<input type="text" id="pq-'+p.id+'" placeholder="'+(p.ph||'')+'">';
-    return '<div class="pergunta-item"><label>'+p.label+'</label>'+inp+'</div>';
+function renderQs(){
+  setStep(3);
+  var i=D.info, pp=[];
+  if(!i.nome) pp.push({id:'nm',l:'Nome do empreendimento',t:'text',ph:'Ex: Residencial Olimpia'});
+  if(!i.construtora) pp.push({id:'cn',l:'Construtora',t:'text',ph:'Ex: MRV, Tenda'});
+  if(!i.bairro) pp.push({id:'br',l:'Bairro / Regiao',t:'text',ph:'Ex: Itaquera'});
+  pp.push({id:'en',l:'Endereco ou referencia',t:'text',ph:'Ex: Av. Ragueb Chohfi, 1000'});
+  pp.push({id:'mt',l:'Metro/CPTM mais proximo',t:'text',ph:'Ex: Metro Itaquera - 800m'});
+  pp.push({id:'pr',l:'Pontos de referencia',t:'ta',ph:'Ex: Shopping 2km, Hospital 1km...'});
+  pp.push({id:'dm',l:'Dormitorios',t:'sel',op:['1 dormitorio','2 dormitorios','3 dormitorios','1 e 2 dormitorios','2 e 3 dormitorios']});
+  pp.push({id:'ar',l:'Area util',t:'text',ph:'Ex: 42m2 a 55m2'});
+  pp.push({id:'vg',l:'Vaga de garagem',t:'sel',op:['1 vaga inclusa','Vaga coberta','Vaga opcional','Nao possui']});
+  pp.push({id:'un',l:'Unidades disponiveis',t:'text',ph:'Ex: 120 unidades, 30 disponiveis'});
+  pp.push({id:'lz',l:'Itens de lazer',t:'ta',ph:'Ex: Piscina, salao de festas, playground...'});
+  pp.push({id:'sg',l:'Seguranca',t:'text',ph:'Ex: Portaria 24h, cameras, biometria'});
+  pp.push({id:'fx',l:'Faixa MCMV',t:'sel',op:['Faixa 1 (ate R$ 2.640/mes)','Faixa 2 (ate R$ 4.400/mes)','Faixa 3 (ate R$ 8.000/mes)']});
+  if(!i.subsidio) pp.push({id:'sb',l:'Subsidio',t:'text',ph:'Ex: ate R$ 55.000'});
+  if(!i.entrada) pp.push({id:'et',l:'Entrada',t:'text',ph:'Ex: a partir de R$ 5.000'});
+  if(!i.parcela) pp.push({id:'pc',l:'Parcela mensal',t:'text',ph:'Ex: a partir de R$ 450/mes'});
+  pp.push({id:'ob',l:'Status da obra',t:'sel',op:['Na planta','Em construcao','Pronto para morar','Entregando chaves']});
+  pp.push({id:'pu',l:'Publico-alvo',t:'sel',op:['Jovens casais','Familias com filhos','Trabalhadores solo','Primeira compra','Todos']});
+  pp.push({id:'oj',l:'Objetivo do anuncio',t:'sel',op:['Gerar lead (formulario)','WhatsApp','Visita ao stand','Ligar agora']});
+  pp.push({id:'tm',l:'Tom',t:'sel',op:['Emocional (sonho da casa)','Racional (numeros)','Urgencia (ultimas unidades)','Aspiracional (nova vida)']});
+  pp.push({id:'ct',l:'CTA',t:'text',ph:'Ex: Fale com um corretor agora'});
+  pp.push({id:'im',l:'Imagens que vai anexar',t:'ta',ph:'Ex: fachada, sala decorada, piscina, planta...'});
+  D.qs=pp;
+  document.getElementById('pbox').innerHTML=pp.map(function(p){
+    var inp=p.t==='sel'?'<select id="q-'+p.id+'">'+p.op.map(function(o){return '<option>'+o+'</option>';}).join('')+'</select>'
+      :p.t==='ta'?'<textarea id="q-'+p.id+'" placeholder="'+(p.ph||'')+'"></textarea>'
+      :'<input type="text" id="q-'+p.id+'" placeholder="'+(p.ph||'')+'">';
+    return '<div class="pi"><label>'+p.l+'</label>'+inp+'</div>';
   }).join('');
 }
 
-function gerarPrompt(){
-  var btn=document.getElementById('btn-gerar-prompt');
-  if(btn){btn.disabled=true;btn.innerHTML='<span class="spinner spinner-dark"></span> Gerando...';}
+function doPrompt(){
+  var btn=document.getElementById('bgp'); if(btn){btn.disabled=true;btn.innerHTML='Gerando...';}
   var r={};
-  (S.perguntasList||[]).forEach(function(p){var el=document.getElementById('pq-'+p.id);if(el)r[p.id]=el.value;});
-  S.respostas=r;
-  ['s3','s2'].forEach(function(id){document.getElementById(id).style.display='none';});
-  document.getElementById('step3').classList.remove('active');document.getElementById('step3').classList.add('done');
-  document.getElementById('step4').classList.add('active');document.getElementById('s4').style.display='block';
-  document.getElementById('prompt-output').textContent='Gerando prompt...';
-  var i=S.infoExtraida;
-  var fmt=(document.getElementById('formato-criativo')||{}).value||'feed';
-  var fmtMap={feed:'feed Facebook/Instagram (1080x1080px)',stories:'Stories Instagram (1080x1920px)',carrossel:'carrossel 6 imagens (1080x1080px)',banner:'banner horizontal (1200x628px)'};
-  var p='Crie um prompt DETALHADO para IA gerar criativo imobiliario MCMV no formato '+fmtMap[fmt]+'.\n\n'
-    +'EMPREENDIMENTO: '+(r.nome||i.nome||'-')+'\nCONSTRUTORA: '+(r.construtora||i.construtora||'-')+'\nLOCALIZACAO: '+(r.endereco||i.bairro||'-')+', SP\nMETRO: '+(r.metro||'-')+'\nREFERENCIAS: '+(r.pontos_ref||(i.localizacao_pontos||[]).join(', ')||'-')+'\nDORMITORIOS: '+(r.dorms||i.tipologia||'-')+'\nAREA: '+(r.area_util||i.area||'-')+'\nVAGA: '+(r.vaga||'-')+'\nUNIDADES: '+(r.unidades||'-')+'\nLAZER: '+(r.lazer||(i.lazer||[]).join(', ')||'-')+'\nSEGURANCA: '+(r.seguranca||'-')+'\nFAIXA: '+(r.faixa||i.faixa_mcmv||'-')+'\nPRECO: '+((i.preco_min||'')+' - '+(i.preco_max||''))+'\nSUBSIDIO: '+(r.subsidio||i.subsidio||'-')+'\nENTRADA: '+(r.entrada||i.entrada||'-')+'\nPARCELA: '+(r.parcela||i.parcela||'-')+'\nOBRA: '+(r.status_obra||i.status_obra||'-')+'\nDIFERENCIAIS: '+((i.diferenciais||[]).join(', ')||'-')+'\n\n'
-    +'CRIATIVO:\nPublico: '+(r.publico||'-')+'\nObjetivo: '+(r.objetivo||'-')+'\nTom: '+(r.tom||'-')+'\nCTA: '+(r.cta||'-')+'\nImagens: '+(r.imagens||'-')+'\n\n'
-    +'Instrua a IA a usar imagens anexadas como base visual, adicionar textos de alta conversao nas posicoes corretas, especificar layout cores e hierarquia, destacar subsidio parcela e localizacao, CTA forte com urgencia. Retorne APENAS o prompt final.';
-  callClaude(p).then(function(text){document.getElementById('prompt-output').textContent=text;S.promptGerado=text;})
-  .catch(function(e){document.getElementById('prompt-output').textContent='Erro: '+e.message;})
-  .finally(function(){if(btn){btn.disabled=false;btn.innerHTML='Gerar Prompt';}});
+  (D.qs||[]).forEach(function(p){var el=document.getElementById('q-'+p.id);if(el)r[p.id]=el.value;});
+  setStep(4);
+  document.getElementById('po').textContent='Gerando prompt...';
+  var i=D.info;
+  var fmt=(document.getElementById('fmt')||{}).value||'feed';
+  var fm={feed:'feed Facebook/Instagram (1080x1080px)',stories:'Stories (1080x1920px)',carrossel:'carrossel 6 imagens',banner:'banner horizontal (1200x628px)'};
+  var p='Crie prompt DETALHADO para IA gerar criativo MCMV no formato '+fm[fmt]+'.\n\n'
+    +'EMPREENDIMENTO: '+(r.nm||i.nome||'-')+'\nCONSTRUTORA: '+(r.cn||i.construtora||'-')
+    +'\nLOCALIZACAO: '+(r.en||i.bairro||'-')+', SP\nMETRO: '+(r.mt||'-')
+    +'\nREFERENCIAS: '+(r.pr||(i.localizacao_pontos||[]).join(', ')||'-')
+    +'\nDORMITORIOS: '+(r.dm||i.tipologia||'-')+'\nAREA: '+(r.ar||i.area||'-')
+    +'\nVAGA: '+(r.vg||'-')+'\nUNIDADES: '+(r.un||'-')
+    +'\nLAZER: '+(r.lz||(i.lazer||[]).join(', ')||'-')+'\nSEGURANCA: '+(r.sg||'-')
+    +'\nFAIXA: '+(r.fx||i.faixa_mcmv||'-')+'\nPRECO: '+((i.preco_min||'')+'-'+(i.preco_max||''))
+    +'\nSUBSIDIO: '+(r.sb||i.subsidio||'-')+'\nENTRADA: '+(r.et||i.entrada||'-')
+    +'\nPARCELA: '+(r.pc||i.parcela||'-')+'\nOBRA: '+(r.ob||i.status_obra||'-')
+    +'\nDIFERENCIAIS: '+((i.diferenciais||[]).join(', ')||'-')
+    +'\n\nCRIATIVO:\nPublico: '+(r.pu||'-')+'\nObjetivo: '+(r.oj||'-')
+    +'\nTom: '+(r.tm||'-')+'\nCTA: '+(r.ct||'-')+'\nImagens: '+(r.im||'-')
+    +'\n\nInstrua a IA: usar imagens como base, textos de alta conversao nas posicoes certas, layout/cores/hierarquia, destacar subsidio/parcela/localizacao, CTA forte com urgencia. Retorne APENAS o prompt final.';
+  claude(p,null,null,function(t){ document.getElementById('po').textContent=t; if(btn){btn.disabled=false;btn.innerHTML='Gerar Prompt';} },
+  function(e){ document.getElementById('po').textContent='Erro: '+e; if(btn){btn.disabled=false;btn.innerHTML='Gerar Prompt';} });
 }
 
-function copiarPrompt(){
-  navigator.clipboard.writeText(document.getElementById('prompt-output').textContent).then(function(){
-    event.target.textContent='Copiado!';setTimeout(function(){event.target.textContent='Copiar Prompt';},2000);
+function copyPrompt(){
+  navigator.clipboard.writeText(document.getElementById('po').textContent).then(function(){
+    event.target.textContent='Copiado!'; setTimeout(function(){event.target.textContent='Copiar Prompt';},2000);
   });
 }
 
-function novoBook(){
-  S.bookFile=null;S.infoExtraida={};S.respostas={};
-  document.getElementById('upload-label').innerHTML='<strong>Clique para enviar</strong> o book ou PDF';
-  document.getElementById('manual-desc').value='';
-  document.getElementById('book-upload').value='';
-  for(var j=1;j<=4;j++){var s=document.getElementById('step'+j);s.classList.remove('active','done');var d=document.getElementById('s'+j);if(d)d.style.display='none';}
-  document.getElementById('step1').classList.add('active');document.getElementById('s1').style.display='block';
+function resetBook(){
+  D.book=null; D.info={}; document.getElementById('ul').innerHTML='<strong>Clique para enviar</strong> o book ou PDF';
+  document.getElementById('md').value=''; document.getElementById('fu').value=''; setStep(1);
 }
 </script>
 </body>
