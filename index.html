@@ -305,38 +305,7 @@ function setPeriod(p, el) {
   syncCamp();
 }
 
-// FB REQUEST
-function fbReq(path, cb, errCb) {
-  var t = tok(), a = acc();
-  if (!t || !a) { alert('Configure o Facebook em Config!'); return; }
-  var ins = 'insights.date_preset(' + D.period + '){' + INS + '}';
-  var url = 'https://graph.facebook.com/v19.0/' + a + '/' + path + ins + '&access_token=' + t;
-  var x = new XMLHttpRequest();
-  x.open('GET', url);
-  x.onreadystatechange = function() {
-    if (x.readyState !== 4) return;
-    try {
-      var d = JSON.parse(x.responseText);
-      if (d.error) { if(errCb) errCb(d.error.message); else alert('Erro: '+d.error.message); return; }
-      cb(d);
-    } catch(e) { if(errCb) errCb('Erro ao processar'); }
-  };
-  x.send();
-}
-
-// LEADS
-function getLeads(ins) {
-  var l=0, c=0;
-  if(ins.actions) ins.actions.forEach(function(a){
-    if(a.action_type==='lead'||a.action_type==='onsite_conversion.lead_grouped') l+=parseInt(a.value||0);
-  });
-  if(ins.cost_per_action_type) ins.cost_per_action_type.forEach(function(a){
-    if(a.action_type==='lead'||a.action_type==='onsite_conversion.lead_grouped') c=parseFloat(a.value||0);
-  });
-  return {l:l, c:c};
-}
-
-// SYNC CAMPAIGNS
+// FB REQUEST DIRETO
 function syncCamp() {
   var t=tok(), a=acc();
   if(!t||!a){ alert('Configure o Facebook em Config!'); return; }
@@ -365,7 +334,6 @@ function syncCamp() {
   x.send();
 }
 
-// SYNC ADSETS
 function syncAdsets() {
   var t=tok(),a=acc(); if(!t||!a) return;
   var ins='insights.date_preset('+D.period+'){'+INS+'}';
@@ -384,7 +352,6 @@ function syncAdsets() {
   x.send();
 }
 
-// SYNC ADS
 function syncAds() {
   var t=tok(),a=acc(); if(!t||!a) return;
   var ins='insights.date_preset('+D.period+'){'+INS+'}';
